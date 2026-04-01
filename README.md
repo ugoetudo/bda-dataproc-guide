@@ -30,7 +30,7 @@ the `hive` user does not already exist in MySQL. Proceed as follows:
 1.  Create a bucket to store the encrypted passwords:
 
     ```bash
-    gsutil mb gs://<SECRETS_BUCKET>
+    gcloud storage buckets create gs://<SECRETS_BUCKET>
     ```
 
 2.  Create a key ring:
