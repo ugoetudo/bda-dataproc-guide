@@ -123,6 +123,15 @@ Using the Yelp Academic Dataset [more info here](https://business.yelp.com/data/
 
 See ```gs://etudo-bda-2026/shared```
 
+Copy the following files into your storage bucket.
+- `gs://etudo-bda-2026/shared/openx-json-serde-1.3.8.jar`
+
+Keep in mind that these files should be stored in their own folders, as they will be used for table creation in hive
+- `gs://etudo-bda-2026/shared/yelp_data/yelp_business.json`
+- `gs://etudo-bda-2026/shared/yelp_data/yelp_review.json`
+- `gs://etudo-bda-2026/shared/yelp_data/yelp_user.json`
+
+
 Table 1
 
 ```sql
