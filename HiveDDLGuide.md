@@ -132,9 +132,10 @@ Keep in mind that these files should be stored in their own folders, as they wil
 - `gs://etudo-bda-2026/shared/yelp_data/yelp_user.json`
 
 
-Table 1
+### Table 1
 
 ```sql
+ADD JAR /usr/lib/hive/lib/hive-hcatalog-core-3.1.3.jar;
 
 CREATE EXTERNAL TABLE yelp_review_test (
 review_id STRING, 
@@ -151,8 +152,10 @@ ROW FORMAT SERDE 'org.apache.hive.hcatalog.data.JsonSerDe'
 WITH SERDEPROPERTIES ( "ignore.malformed.json" = "true")
 STORED AS TEXTFILE
 LOCATION 'gs://etudo-bda-2020/yelp_review/';
+```
+### Table 2
 
-
+```sql
 CREATE EXTERNAL TABLE IF NOT EXISTS yelp_user_test (
 user_id STRING,
 name STRING,
