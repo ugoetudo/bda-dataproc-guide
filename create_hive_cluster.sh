@@ -5,14 +5,14 @@
 # If any VM exists (regardless of whether it has an error status) delete the cluster.
 
 # DECLARE VARIABLES
-HIVE_DATA_BUCKET=
+HIVE_DATA_BUCKET=602hivebucket
 PROJECT_ID=
 REGION=us-east4
 SQL_INSTANCE_NAME=
 CLUSTER_NAME=
-SECRETS_BUCKET=
-KEYRING=
-KMS_KEY=
+SECRETS_BUCKET=mysecrets
+KEYRING=my-key-ring
+KMS_KEY=my-key
 KEY_URI=projects/${PROJECT_ID}/locations/global/keyRings/${KEYRING}/cryptoKeys/${KMS_KEY}
 # BUILD GCLOUD DATAPROC CREATE CLUSTER COMMAND
 # Note directives begin with --metadata and --properties...  what do you think these are doing?
