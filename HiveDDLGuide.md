@@ -114,3 +114,73 @@ LOAD DATA LOCAL INPATH 'filepath' INTO TABLE tab1;
 ```
 Here, partition information is missing which would otherwise give an error, however, if the file(s) located at 
 filepath conform to the table schema such that each row ends with partition column(s) then the load will rewrite into an INSERT AS SELECT job.
+
+## Working with other Data Formats
+
+First, note that there is a distinction between data format and file format. 
+
+Using the Yelp Academic Dataset [more info here](https://business.yelp.com/data/resources/open-dataset/), we'll learn about using non-csv data formats. 
+
+See ```gs://etudo-bda-2026/shared```
+
+Copy the following files into your storage bucket.
+- `gs://etudo-bda-2026/shared/openx-json-serde-1.3.8.jar`
+
+Keep in mind that these files should be stored in their own folders, as they will be used for table creation in hive
+- `gs://etudo-bda-2026/shared/yelp_data/yelp_business.json`
+- `gs://etudo-bda-2026/shared/yelp_data/yelp_review.json`
+- `gs://etudo-bda-2026/shared/yelp_data/yelp_user.json`
+
+
+### Table 1
+
+```sql
+ADD JAR /usr/lib/hive/lib/hive-hcatalog-core-3.1.3.jar;
+
+CREATE EXTERNAL TABLE yelp_review_test (
+review_id STRING, 
+user_id STRING,
+business_id STRING,
+stars INT,
+`date` DATE,
+text STRING,
+useful INT,
+funny INT,
+cool INT
+)
+ROW FORMAT SERDE 'org.apache.hive.hcatalog.data.JsonSerDe'
+WITH SERDEPROPERTIES ( "ignore.malformed.json" = "true")
+STORED AS TEXTFILE
+LOCATION 'gs://etudo-bda-2020/yelp_review/';
+```
+### Table 2
+
+```sql
+CREATE EXTERNAL TABLE IF NOT EXISTS yelp_user_test (
+user_id STRING,
+name STRING,
+review_count INT,
+friends ARRAY<STRING>,
+useful INT,
+funny INT,
+cool INT,
+fans INT,
+elite STRING,
+average_stars STRING,
+compliment_hot INT,
+compliment_more INT,
+compliment_profile INT,
+compliment_cute INT,
+compliment_list INT,
+compliment_note INT, 
+compliment_plain INT,
+compliment_cool INT,
+compliment_funny INT,
+compliment_writer INT,
+compliment_photos INT
+)
+ROW FORMAT SERDE 'org.openx.data.jsonserde.JsonSerDe' //try with bundled hive hcat jsonserde
+WITH SERDEPROPERTIES ( "ignore.malformed.json" = "true") //try with this set to false
+STORED AS TEXTFILE
+LOCATION 'gs://etudo-bda-2026/yelp_user/';
+```
