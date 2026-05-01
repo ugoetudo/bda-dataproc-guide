@@ -1,0 +1,3 @@
+[submodule "spark_scripts/amazon_reviews"]
+	path = spark_scripts/amazon_reviews
+	url = /mnt/c/Users/ugoet/ugo-dev/amazon_reviews/
